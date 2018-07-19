@@ -11,7 +11,7 @@ const app = express();
 // Windows and Linux users: You should have retained the user/password from the pre-work for this course.
 // Your OS may require that your conString is composed of additional information including user and password.
 // const conString = 'postgres://USER:PASSWORD@HOST:PORT/DBNAME';
-const conString = 'postgres://postgres:Lookingforwardtothesequel@localhost:5432/kilovolt';
+const conString = 'postgres://postgres:Lookingforwardtothesequel@HOST:5432/articles';
 
 // Mac:
 // const conString = 'postgres://localhost:5432';
@@ -32,7 +32,7 @@ app.use(express.static('./public'));
 // REVIEW: Routes for requesting HTML resources
 app.get('/new-article', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js, if any, is interacting with this particular piece of `server.js`? What part of CRUD, if any, is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  //This corresponds to step 1 of the web request response cycle. By accessing /new-article on the kilovolt website, it will redirect the user to the article builder functionality page (new.html). This does not correspond to any particular line of code in article.js, as its just redirects from a uri change.
   response.sendFile('new.html', {root: './public'});
 });
 
@@ -40,8 +40,10 @@ app.get('/new-article', (request, response) => {
 // REVIEW: Routes for making API calls to use CRUD Operations on our database
 app.get('/articles', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
+
   // PUT YOUR RESPONSE HERE
   client.query('SELECT * FROM articles;')
+
     .then(function(result) {
       response.send(result.rows);
     })
@@ -52,7 +54,7 @@ app.get('/articles', (request, response) => {
 
 app.post('/articles', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  // This corresponds to step 3 of the web request-response cycle, as it is taking in information from the controller and pushing it into the model. The insert record function is sending a request to this funciton, with a new article as an argument. This function takes that new article and updates the model to include this information. (update is being enacted).
   let SQL = `
     INSERT INTO articles(title, author, author_url, category, published_on, body)
     VALUES ($1, $2, $3, $4, $5, $6);

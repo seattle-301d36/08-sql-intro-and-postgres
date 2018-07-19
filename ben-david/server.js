@@ -91,11 +91,13 @@ app.put('/articles/:id', (request, response) => {
   // method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
   // #2, 3, 4, 5. This aligns with the U in CRUD; updates an existing record in the database. It's invoked from the
   // Article.updateRecord method.
-  let articleId = url.replace(/.+\:(id$)/, $1);
+
+  //
+  // let articleId = url.replace(/.+\:(id$)/, $1);
   let SQL = `
-    UPDATE articles SET(title, author, author_url, category, published_on, body)
-    VALUES ($1, $2, $3, $4, $5, $6)
-    WHERE id=${articleId};
+    UPDATE articles 
+    SET title=$1, author=$2, author_url$3, category=$4, published_on=$5, body=$6
+    WHERE aritcle_id=$7;
   `;
 
   let values = [
@@ -104,11 +106,11 @@ app.put('/articles/:id', (request, response) => {
     request.body.author_url,
     request.body.category,
     request.body.published_on,
-    request.body.body
+    request.body.body,
+    request.body.params_id
   ];
 
-  client
-    .query(SQL, values)
+  client.query(SQL, values)
     .then(() => {
       response.send('update complete');
     })
@@ -141,7 +143,9 @@ app.delete('/articles', (request, response) => {
   // #2, 3, 4, 5. This aligns with the D in CRUD; deletes all existing records in the database. It's invoked from the
   // Article.truncateTable method.
 
-  let SQL = '';
+  let SQL = `
+    DELETE FROM articles;
+  `;
   client
     .query(SQL)
     .then(() => {

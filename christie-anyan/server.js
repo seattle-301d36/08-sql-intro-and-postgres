@@ -28,7 +28,7 @@ app.use(express.static('./public'));
 // REVIEW: Routes for requesting HTML resources
 app.get('/new-article', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js, if any, is interacting with this particular piece of `server.js`? What part of CRUD, if any, is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  // This corresponds to number 2 on the diagram as it's requesting new.html and applying it to the provided route. I don't believe this is interacting with anything in article.js, as it's simply defining a path for an existing asset and not actively rendering anything. 
   response.sendFile('new.html', {root: './public'});
 });
 
@@ -76,8 +76,18 @@ app.put('/articles/:id', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
   // PUT YOUR RESPONSE HERE
 
-  let SQL = '';
-  let values = [];
+  let SQL = `UPDATE articles
+             SET title = $1, author = $2, author_url = $3, category = $4, published_on = $5, body = $6
+             WHERE article_id=$7;`;
+  let values = [
+    request.body.title,
+    request.body.author,
+    request.body.author_url,
+    request.body.category,
+    request.body.published_on,
+    request.body.body,
+    request.params.id
+  ];
 
   client.query( SQL, values )
     .then(() => {
@@ -108,7 +118,7 @@ app.delete('/articles', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
   // PUT YOUR RESPONSE HERE
 
-  let SQL = '';
+  let SQL = 'DELETE * FROM articles';
   client.query( SQL )
     .then(() => {
       response.send('Delete complete')

@@ -28,7 +28,7 @@ app.use(express.static('./public'));
 // REVIEW: Routes for requesting HTML resources
 app.get('/new-article', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js, if any, is interacting with this particular piece of `server.js`? What part of CRUD, if any, is being enacted/managed by this particular piece of code?
-  // 2, i dont think that this one is interacting with article.js
+  // 5, i dont think that this one is interacting with article.js but it is interacting with new.html
   response.sendFile('new.html', {root: './public'});
 });
 
@@ -36,7 +36,7 @@ app.get('/new-article', (request, response) => {
 // REVIEW: Routes for making API calls to use CRUD Operations on our database
 app.get('/articles', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // 5, fetchAll method is interacting, 
+  // 3, fetchAll method, retrieve
   client.query('SELECT *  from articles')
     .then(function(result) {
       response.send(result.rows);
@@ -76,7 +76,8 @@ app.put('/articles/:id', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
   // 4, updateRecord method is interacting with this code, update.
 
-  let SQL = `UPDATE articles SET title=$1, author=$2, author_url=$3, category=$4, published_on=$5, body=$6 WHERE article_id=$7;`;
+  let SQL = `UPDATE articles SET title=$1, author=$2, author_url=$3, category=$4, published_on=$5, body=$6, WHERE article_id=$7;
+  `;
 
 
   let values = [
@@ -141,7 +142,7 @@ app.listen(PORT, () => {
 ////////////////////////////////////////
 function loadArticles() {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  // 3, this in not in article.js it is called here in server.js
 
   let SQL = 'SELECT COUNT(*) FROM articles';
   client.query( SQL )

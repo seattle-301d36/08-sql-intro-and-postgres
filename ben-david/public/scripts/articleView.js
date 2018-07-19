@@ -5,16 +5,18 @@ const articleView = {};
 articleView.populateFilters = () => {
   $('article').each(function() {
     if (!$(this).hasClass('template')) {
-      let val = $(this).find('address a').text();
-      let optionTag = `<option value="${val}">${val}</option>`;
+      let val = $(this)
+        .find('address a')
+        .text();
+      let optionTag = `<option value='${val}'>${val}</option>`;
 
-      if ($(`#author-filter option[value="${val}"]`).length === 0) {
+      if ($(`#author-filter option[value='${val}']`).length === 0) {
         $('#author-filter').append(optionTag);
       }
 
       val = $(this).attr('data-category');
-      optionTag = `<option value="${val}">${val}</option>`;
-      if ($(`#category-filter option[value="${val}"]`).length === 0) {
+      optionTag = `<option value='${val}'>${val}</option>`;
+      if ($(`#category-filter option[value='${val}']`).length === 0) {
         $('#category-filter').append(optionTag);
       }
     }
@@ -25,7 +27,7 @@ articleView.handleAuthorFilter = () => {
   $('#author-filter').on('change', function() {
     if ($(this).val()) {
       $('article').hide();
-      $(`article[data-author="${$(this).val()}"]`).fadeIn();
+      $(`article[data-author='${$(this).val()}']`).fadeIn();
     } else {
       $('article').fadeIn();
       $('article.template').hide();
@@ -38,7 +40,7 @@ articleView.handleCategoryFilter = () => {
   $('#category-filter').on('change', function() {
     if ($(this).val()) {
       $('article').hide();
-      $(`article[data-category="${$(this).val()}"]`).fadeIn();
+      $(`article[data-category='${$(this).val()}']`).fadeIn();
     } else {
       $('article').fadeIn();
       $('article.template').hide();
@@ -62,14 +64,25 @@ articleView.setTeasers = () => {
   $('article').on('click', 'a.read-on', function(e) {
     e.preventDefault();
     if ($(this).text() === 'Read on →') {
-      $(this).parent().find('*').fadeIn();
+      $(this)
+        .parent()
+        .find('*')
+        .fadeIn();
       $(this).html('Show Less &larr;');
     } else {
-      $('body').animate({
-        scrollTop: ($(this).parent().offset().top)
-      },200);
+      $('body').animate(
+        {
+          scrollTop: $(this)
+            .parent()
+            .offset().top
+        },
+        200
+      );
       $(this).html('Read on &rarr;');
-      $(this).parent().find('.article-body *:nth-of-type(n+2)').hide();
+      $(this)
+        .parent()
+        .find('.article-body *:nth-of-type(n+2)')
+        .hide();
     }
   });
 };
@@ -77,7 +90,8 @@ articleView.setTeasers = () => {
 articleView.initNewArticlePage = () => {
   $('.tab-content').show();
   $('#export-field').hide();
-  $('#article-json').on('focus', function(){// TODO optional clean this up because JSON replaced by database
+  $('#article-json').on('focus', function() {
+    // TODO optional clean this up because JSON replaced by database
     this.select();
   });
 
@@ -105,7 +119,7 @@ articleView.create = () => {
   });
 
   $('#export-field').show();
-  $('#article-json').val(`${JSON.stringify(article)},`);// TODO Need to remove somehow...but do we replace?
+  $('#article-json').val(`${JSON.stringify(article)},`); // TODO Need to remove somehow...but do we replace?
 };
 
 articleView.submit = event => {
@@ -120,11 +134,11 @@ articleView.submit = event => {
   });
 
   article.insertRecord();
-}
+};
 
 articleView.initIndexPage = () => {
   Article.all.forEach(article => {
-    $('#articles').append(article.toHtml())
+    $('#articles').append(article.toHtml());
   });
 
   articleView.populateFilters();

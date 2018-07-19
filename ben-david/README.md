@@ -1,6 +1,6 @@
 ﻿# Project Name
 
-**Author**: David Hull & Brandon Haynes
+**Author**: David Hull & Ben Harris
 **Version**: 1.0.0 (increment the patch/fix version number up if you make more commits past your first submission)
 
 ## Overview
@@ -18,12 +18,15 @@ JavaScript
 JQuery
 Handlebars
 Node.js with ExpressJS.
+NPM
+PostgreSQL
 
 ## Change Log
-2018 07 18 : This is our first version of this web site. We completed lab instructions.
-We have a server running that support get web requests and serves up various pages.
+2018 07 19 : This is our first version of this web site. We completed lab instructions.
+We have a server running that support get web requests and serves up various pages. It's also
+using a PostgreSQL database for articles.
 
 ## Credits and Collaborations
-Brandon Haynes and David Hull.
+Ben Harris and David Hull.
 MIT License.
 Vendor icons and normalize.

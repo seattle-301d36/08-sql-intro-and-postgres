@@ -38,7 +38,8 @@ app.get('/new-article', (request, response) => {
 app.get('/articles', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
   // 3 because on client.query the controller is interacting with the model (SQL). This is interacting with Article.fetchAll() in article.js. This corresponds with the 'Read' portion of CRUD.
-  client.query('')
+ let SQL = 'SELECT * FROM articles';
+  client.query(SQL)
     .then(function(result) {
       response.send(result.rows);
     })
@@ -77,8 +78,15 @@ app.put('/articles/:id', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
   // This involves number 3 because the variable is being passed in as an argument for the controller's query to the model. This corresponds with Article.updateRecord() method and the 'Update' portion of CRUD.
 
-  let SQL = '';
-  let values = [];
+  let SQL =  `UPDATE articles(title, author, author_url, category, published_on, body)
+  VALUES ($1, $2, $3, $4, $5, $6);`;
+
+  let values = [request.body.title,
+    request.body.author,
+    request.body.author_url,
+    request.body.category,
+    request.body.published_on,
+    request.body.body];
 
   client.query( SQL, values )
     .then(() => {

@@ -9,7 +9,7 @@ const app = express();
 
 // Windows and Linux users: You should have retained the user/password from the pre-work for this course.
 // Your OS may require that your conString is composed of additional information including user and password.
-const conString = 'postgres://postgres:1234@localhost:5532/postgres';
+const conString = 'postgres://postgres:1234@localhost:5432/postgres';
 
 // Mac:
 // const conString = 'postgres://localhost:5432';

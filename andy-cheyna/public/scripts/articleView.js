@@ -85,9 +85,9 @@ articleView.initNewArticlePage = () => {
   $('#new-form').on('submit', articleView.submit);
 };
 
-articleView.create = () => {
-  let article;
-  $('#articles').empty();
+// articleView.create = () => {
+//   let article;
+//   $('#articles').empty();
 
 //   article = new Article({
 //     title: $('#article-title').val(),

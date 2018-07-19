@@ -77,7 +77,7 @@ app.put('/articles/:id', (request, response) => {
   // PUT YOUR RESPONSE HERE
 
   let SQL = '';
-  let values = [];
+  let values = [request.params.id];
 
   client.query( SQL, values )
     .then(() => {

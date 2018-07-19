@@ -9,6 +9,8 @@
   "author": "Code Fellows",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "nodemon": "^1.18.3",
+    "pg": "^7.4.3"
   }
 }

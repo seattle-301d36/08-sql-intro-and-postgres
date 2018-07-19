@@ -77,7 +77,7 @@ articleView.setTeasers = () => {
 articleView.initNewArticlePage = () => {
   $('.tab-content').show();
   $('#export-field').hide();
-  $('#article-json').on('focus', function(){
+  $('#article-json').on('focus', function(){// TODO optional clean this up because JSON replaced by database
     this.select();
   });
 
@@ -105,7 +105,7 @@ articleView.create = () => {
   });
 
   $('#export-field').show();
-  $('#article-json').val(`${JSON.stringify(article)},`);
+  $('#article-json').val(`${JSON.stringify(article)},`);// TODO Need to remove somehow...but do we replace?
 };
 
 articleView.submit = event => {

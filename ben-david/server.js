@@ -36,7 +36,7 @@ app.get('/new-article', (request, response) => {
   // method of article.js, if any, is interacting with this particular piece of `server.js`? What part of CRUD, if any, is being enacted/managed by this particular piece of code?
   // #2,5. Doesn't tie directly to article.js. It's triggered by the user entering this url in their browser:
   // http://localhost:3000/new-article. There is no CRUD operation here. It's just returning an empty form.
-  response.sendFile('new.html', { root: './public' });
+  response.sendFile('new.html', {root: './public'});
 });
 
 // REVIEW: Routes for making API calls to use CRUD Operations on our database
@@ -49,10 +49,10 @@ app.get('/articles', (request, response) => {
   `;
   client
     .query(SQL)
-    .then(function(result) {
+    .then(function (result) {
       response.send(result.rows);
     })
-    .catch(function(err) {
+    .catch(function (err) {
       console.error(err);
     });
 });
@@ -78,10 +78,10 @@ app.post('/articles', (request, response) => {
 
   client
     .query(SQL, values)
-    .then(function() {
+    .then(function () {
       response.send('insert complete');
     })
-    .catch(function(err) {
+    .catch(function (err) {
       console.error(err);
     });
 });
@@ -92,8 +92,6 @@ app.put('/articles/:id', (request, response) => {
   // #2, 3, 4, 5. This aligns with the U in CRUD; updates an existing record in the database. It's invoked from the
   // Article.updateRecord method.
 
-  //
-  // let articleId = url.replace(/.+\:(id$)/, $1);
   let SQL = `
     UPDATE articles 
     SET title=$1, author=$2, author_url$3, category=$4, published_on=$5, body=$6
@@ -139,7 +137,8 @@ app.delete('/articles/:id', (request, response) => {
 });
 
 app.delete('/articles', (request, response) => {
-  // TODO COMMENT:What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
+  // TODone COMMENT:What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which
+  // method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
   // #2, 3, 4, 5. This aligns with the D in CRUD; deletes all existing records in the database. It's invoked from the
   // Article.truncateTable method.
 

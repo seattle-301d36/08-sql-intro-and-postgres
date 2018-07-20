@@ -97,7 +97,3 @@ Article.prototype.updateRecord = function(callback) {
     if (callback) callback();
   });
 };
-
-function solution(str){
-  str.split().reverse().join();
-}

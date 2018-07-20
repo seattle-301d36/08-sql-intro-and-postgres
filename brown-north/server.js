@@ -78,15 +78,15 @@ app.put('/articles/:id', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
   // This involves number 3 because the variable is being passed in as an argument for the controller's query to the model. This corresponds with Article.updateRecord() method and the 'Update' portion of CRUD.
 
-  let SQL = `UPDATE articles SET (title=$1, author=$2, author_url=$3, category=$4, published_on=$5, body=$6) WHERE article_id=$7;`
+  let SQL = `UPDATE articles SET title = $1, author = $2, author_url = $3, category = $4, published_on = $5, body = $6 WHERE article_id = $7;`;
   let values = [
-    request.params.title,
-    request.params.author,
-    request.params.author_url,
-    request.params.category,
-    request.params.published_on,
-    request.params.body,
-    request.params.article_id,
+    request.body.title,
+    request.body.author,
+    request.body.author_url,
+    request.body.category,
+    request.body.published_on,
+    request.body.body,
+    request.params.id,
   ];
 
   client.query( SQL, values )
@@ -118,7 +118,7 @@ app.delete('/articles', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
   // This involves number 3 because the variable is being passed in as an argument for the controller's query to the model. This corresponds with the Article.truncateTable() method and the 'Delete' portion of CRUD.
 
-  let SQL = '';
+  let SQL = 'TRUNCATE TABLE articles';
   client.query( SQL )
     .then(() => {
       response.send('Delete complete')

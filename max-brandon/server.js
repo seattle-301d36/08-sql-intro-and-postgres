@@ -41,7 +41,7 @@ app.get('/new-article', (request, response) => {
 app.get('/articles', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
 
-  // PUT YOUR RESPONSE HERE
+  // This repsonds to step  4, which takes a request (in this case a get request for the articles), and responds with the information from the server, sending it back to the view to populate the page. This is interacting with the FETCH.ALL funciton in article.js. This corresponds to READ in CRUD.
   client.query('SELECT * FROM articles;')
 
     .then(function(result) {
@@ -54,7 +54,7 @@ app.get('/articles', (request, response) => {
 
 app.post('/articles', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // This corresponds to step 3 of the web request-response cycle, as it is taking in information from the controller and pushing it into the model. The insert record function is sending a request to this funciton, with a new article as an argument. This function takes that new article and updates the model to include this information. (update is being enacted).
+  // This corresponds to step 3 of the web request-response cycle, as it is taking in information from the controller and pushing it into the model. The insert record function is sending a request to this funciton, with a new article as an argument. This function takes that new article and updates the model to include this information. (CREATE is being enacted in CRUD).
   let SQL = `
     INSERT INTO articles(title, author, author_url, category, published_on, body)
     VALUES ($1, $2, $3, $4, $5, $6);
@@ -80,7 +80,7 @@ app.post('/articles', (request, response) => {
 
 app.put('/articles/:id', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  // This is step 3 in the full stack diagram, as it is giving the model new information, recieving an update complete message as a response. This is interacting with Article.updateRecord, which allows the user to update a certain record in the model. This corresponds to Update in CRUD.
 
   let SQL = `UPDATE articles SET title = $2, author = $3, author_url = $4, category = $5, published_on = $6, body = $7 WHERE article_id = $1;`;
   let values = [
@@ -103,7 +103,7 @@ app.put('/articles/:id', (request, response) => {
 
 app.delete('/articles/:id', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  // This corresponds to 3 in the full stack diagram, as it is modifying the model and recieving a DELETE COMPLETE string back as a response. This is interacting with the function .deleteRecord() in article.js. This corresponds to Delete in CRUD. 
 
   let SQL = `DELETE FROM articles WHERE article_id=$1;`;
   let values = [request.params.id];
@@ -119,7 +119,7 @@ app.delete('/articles/:id', (request, response) => {
 
 app.delete('/articles', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  // This again is #3 in the full stack diagram, as the controller is modifying the model. This code corresponds to the .trucateTable() funciton in article.js. This corresponds to DELETE in CRUD.
 
   let SQL = 'DELETE FROM articles;';
   client.query( SQL )
@@ -132,7 +132,7 @@ app.delete('/articles', (request, response) => {
 });
 
 // COMMENT: What is this function invocation doing?
-// PUT YOUR RESPONSE HERE
+// This funciton is calling the load database function, which initializes a table if one does not exist.
 loadDB();
 
 app.listen(PORT, () => {
@@ -144,7 +144,7 @@ app.listen(PORT, () => {
 ////////////////////////////////////////
 function loadArticles() {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  // This function corresponds to #4 in the full stack diagram, as it is pulling out information from the Model. This does not directly interact with any line in article.js, however it is populating the hackerIpsum.json file, which interacts with 
 
   let SQL = 'SELECT COUNT(*) FROM articles';
   client.query( SQL )
@@ -169,7 +169,7 @@ function loadArticles() {
 
 function loadDB() {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  // This corresponds to #3 of the full diagram, as the controller is telling the model to create a table if no table exists. This does not correspond directly to any code in article.js, as this function is being called within server.js. This would be CREATE in CRUD.
   client.query(`
     CREATE TABLE IF NOT EXISTS articles (
       article_id SERIAL PRIMARY KEY,

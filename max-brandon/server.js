@@ -169,7 +169,7 @@ function loadArticles() {
 
 function loadDB() {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // This corresponds to #3 of the full diagram, as the controller is telling the model to create a table if no table exists. This does not correspond directly to any code in article.js, as this function is being called within server.js. This would be CREATE in CRUD.
+  // This corresponds to #3 of the full diagram, as the controller is telling the model to create a table if no table exists. This does not correspond directly to any code in article.js, as this function is being called within server.js. This would be CREATE in CRUD.git 
   client.query(`
     CREATE TABLE IF NOT EXISTS articles (
       article_id SERIAL PRIMARY KEY,
